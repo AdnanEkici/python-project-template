@@ -1,0 +1,9 @@
+[project]
+name = "python-project-template"
+version = "0.1.0"
+description = "A container-first, framework-agnostic Python project template."
+readme = "README.md"
+requires-python = ">=3.11"
+
+[project.urls]
+Repository = "https://github.com/AdnanEkici/python-project-template"

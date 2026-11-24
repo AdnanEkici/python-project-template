@@ -1,0 +1,81 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Setup: Install Development Environment",
+            "type": "shell",
+            "command": "bash scripts/install_development_environment.sh",
+            "options": { "cwd": "${workspaceFolder}" },
+            "presentation": { "reveal": "always", "focus": true, "panel": "dedicated" },
+            "problemMatcher": []
+        },
+        {
+            "label": "Development: Start Development Container",
+            "type": "shell",
+            "command": "docker compose -f docker-compose.dev.yml up -d --build dev",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Development: Open in Development Container",
+            "type": "shell",
+            "command": "code --folder-uri \"vscode-remote://dev-container+$(printf '%s' \"$PWD\" | od -An -tx1 | tr -d ' \\n')/workspace\"",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": "Development: Start Development Container",
+            "problemMatcher": []
+        },
+        {
+            "label": "Development: Stop Development Container",
+            "type": "shell",
+            "command": "docker compose -f docker-compose.dev.yml down",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Test: Run All Tests",
+            "type": "shell",
+            "command": "\"${command:python.interpreterPath}\" -m unittest discover tests",
+            "options": { "cwd": "${workspaceFolder}" },
+            "group": { "kind": "test", "isDefault": true },
+            "presentation": { "reveal": "always", "panel": "dedicated", "clear": true },
+            "problemMatcher": []
+        },
+        {
+            "label": "Test: Run Unit Tests",
+            "type": "shell",
+            "command": "\"${command:python.interpreterPath}\" -m unittest discover tests/unit",
+            "options": { "cwd": "${workspaceFolder}" },
+            "group": "test",
+            "presentation": { "reveal": "always", "panel": "dedicated", "clear": true },
+            "problemMatcher": []
+        },
+        {
+            "label": "Test: Run Integration Tests",
+            "type": "shell",
+            "command": "\"${command:python.interpreterPath}\" -m unittest discover tests/integration",
+            "options": { "cwd": "${workspaceFolder}" },
+            "group": "test",
+            "presentation": { "reveal": "always", "panel": "dedicated", "clear": true },
+            "problemMatcher": []
+        },
+        {
+            "label": "Quality: Run Pre-commit",
+            "type": "shell",
+            "command": "\"${command:python.interpreterPath}\" -m pre_commit run --all-files",
+            "options": { "cwd": "${workspaceFolder}" },
+            "presentation": { "reveal": "always", "panel": "dedicated", "clear": true },
+            "problemMatcher": []
+        }
+
+    ]
+}

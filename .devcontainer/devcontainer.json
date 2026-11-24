@@ -1,0 +1,40 @@
+{
+    "name": "Python Development",
+    "dockerComposeFile": [
+        "../docker-compose.dev.yml"
+    ],
+    "service": "dev",
+    "runServices": ["dev"],
+    "workspaceFolder": "/workspace",
+    "remoteUser": "developer",
+    "updateRemoteUserUID": true,
+    "shutdownAction": "stopCompose",
+    "postCreateCommand": "git config --global --add safe.directory /workspace && pre-commit install",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.debugpy",
+                "ms-python.mypy-type-checker",
+                "ms-python.black-formatter",
+                "ms-azuretools.vscode-docker",
+                "redhat.vscode-yaml",
+                "charliermarsh.ruff"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/opt/venv/bin/python",
+                "python.analysis.extraPaths": ["app"],
+                "python.testing.unittestEnabled": true,
+                "python.testing.pytestEnabled": false,
+                "python.testing.unittestArgs": [
+                    "-v",
+                    "-s",
+                    "./tests",
+                    "-p",
+                    "test_*.py"
+                ]
+            }
+        }
+    }
+}

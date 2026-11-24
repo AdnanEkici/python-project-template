@@ -1,0 +1,19 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    command: ["sleep", "infinity"]
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - .:/workspace
+      - uv_cache:/home/developer/.cache/uv
+      - pre_commit_cache:/home/developer/.cache/pre-commit
+    init: true
+
+volumes:
+  uv_cache:
+  pre_commit_cache:
